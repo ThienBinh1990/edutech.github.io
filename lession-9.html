@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguy cơ trên mạng và Phần mềm độc hại - Tin học 10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .danger-card {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border: 2px solid #f87171;
+        }
+        
+        .warning-card {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border: 2px solid #fbbf24;
+        }
+        
+        .safe-card {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 2px solid #4ade80;
+        }
+        
+        .scenario-option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .scenario-option:hover {
+            transform: translateX(5px);
+        }
+        
+        .scenario-option.correct {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            border-color: #16a34a;
+        }
+        
+        .scenario-option.incorrect {
+            background: linear-gradient(135deg, #fef2f2, #fecaca);
+            border-color: #dc2626;
+        }
+        
+        .malware-icon {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .typing-animation {
+            border-right: 2px solid #3b82f6;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #3b82f6; }
+        }
+        
+        .simulation-screen {
+            background: #1f2937;
+            color: #10b981;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .phishing-email {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border: 1px solid #cbd5e1;
+        }
+        
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+        
+        .test-question {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+        }
+        
+        .test-option {
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 6px 10px;
+            margin: 3px 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+        
+        .test-option:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+        
+        .test-option.selected {
+            background: #dbeafe;
+            border-color: #3b82f6;
+        }
+        
+        .test-option.correct {
+            background: #dcfce7;
+            border-color: #16a34a;
+        }
+        
+        .test-option.incorrect {
+            background: #fef2f2;
+            border-color: #dc2626;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="gradient-bg shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-shield-alt text-white text-2xl mr-3"></i>
+                    <h1 class="text-white text-xl font-bold">Tin học 10 - An toàn mạng</h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#objectives" class="text-white hover:text-red-200 transition duration-300">Mục tiêu</a>
+                    <a href="#theory" class="text-white hover:text-red-200 transition duration-300">Lý thuyết</a>
+                    <a href="#simulation" class="text-white hover:text-red-200 transition duration-300">Mô phỏng</a>
+                    <a href="#quiz" class="text-white hover:text-red-200 transition duration-300">Kiểm tra</a>
+                </div>
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 fade-in">
+                Nguy cơ trên mạng & Phần mềm độc hại
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90 fade-in">
+                Nhận diện và phòng chống các mối đe dọa trong không gian số
+            </p>
+            <div class="flex justify-center items-center space-x-6 fade-in">
+                <div class="text-center">
+                    <i class="fas fa-exclamation-triangle text-4xl mb-2 malware-icon"></i>
+                    <p class="text-sm">Nguy cơ mạng</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-virus text-4xl mb-2 malware-icon"></i>
+                    <p class="text-sm">Malware</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-user-secret text-4xl mb-2 malware-icon"></i>
+                    <p class="text-sm">Bắt nạt mạng</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-shield-alt text-4xl mb-2"></i>
+                    <p class="text-sm">Bảo vệ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Bar -->
+    <div class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-sm font-medium text-gray-700">Tiến độ học tập</span>
+                <span class="text-sm font-medium text-gray-700" id="progress-text">0%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="progress-bar bg-red-600 h-2 rounded-full" style="width: 0%" id="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Objectives Section -->
+        <section id="objectives" class="mb-16 fade-in">
+            <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
+                <div class="flex items-center mb-6">
+                    <div class="bg-red-100 p-3 rounded-full mr-4">
+                        <i class="fas fa-bullseye text-red-600 text-2xl"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-800">Mục tiêu bài học</h2>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-3">Kiến thức:</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Nhận diện các nguy cơ phổ biến trên mạng</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Hiểu về các loại phần mềm độc hại và cách hoạt động</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Nắm được tác hại của bắt nạt trên không gian mạng</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-3">Kỹ năng:</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Phân biệt tin thật và tin giả trên mạng</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Áp dụng các biện pháp phòng chống malware</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Bảo vệ thông tin cá nhân trên mạng</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theory Section -->
+        <section id="theory" class="mb-16">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Nội dung lý thuyết</h2>
+                <div class="w-24 h-1 bg-red-600 mx-auto"></div>
+            </div>
+
+            <!-- Network Risks -->
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8 card-hover fade-in">
+                <div class="flex items-center mb-6">
+                    <div class="bg-red-100 p-3 rounded-full mr-4">
+                        <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Một số nguy cơ trên mạng</h3>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <!-- Fake News -->
+                    <div class="danger-card p-6 rounded-lg">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-newspaper text-red-600 text-3xl mb-3"></i>
+                            <h4 class="text-lg font-semibold text-gray-800">Tin giả & Tin phản văn hóa</h4>
+                        </div>
+                        <ul class="text-sm text-gray-700 space-y-2">
+                            <li>• Thông tin sai lệch, bịa đặt</li>
+                            <li>• Nội dung phản cảm, độc hại</li>
+                            <li>• Gây hoang mang dư luận</li>
+                            <li>• Ảnh hưởng tâm lý tiêu cực</li>
+                        </ul>
+                    </div>
+
+                    <!-- Online Fraud -->
+                    <div class="danger-card p-6 rounded-lg">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-user-ninja text-red-600 text-3xl mb-3"></i>
+                            <h4 class="text-lg font-semibold text-gray-800">Lừa đảo trên mạng</h4>
+                        </div>
+                        <ul class="text-sm text-gray-700 space-y-2">
+                            <li>• Giả mạo website ngân hàng</li>
+                            <li>• Lừa đảo qua email, SMS</li>
+                            <li>• Chiếm đoạt tài khoản</li>
+                            <li>• Mất tiền, thông tin</li>
+                        </ul>
+                    </div>
+
+                    <!-- Privacy Leak -->
+                    <div class="danger-card p-6 rounded-lg">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-eye text-red-600 text-3xl mb-3"></i>
+                            <h4 class="text-lg font-semibold text-gray-800">Lộ thông tin cá nhân</h4>
+                        </div>
+                        <ul class="text-sm text-gray-700 space-y-2">
+                            <li>• Chia sẻ thông tin quá mức</li>
+                            <li>• Bị theo dõi, giám sát</li>
+                            <li>• Mất quyền riêng tư</li>
+                            <li>• Nguy cơ bị lạm dụng</li>
+                        </ul>
+                    </div>
+
+                    <!-- Cyberbullying -->
+                    <div class="danger-card p-6 rounded-lg">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-user-secret text-red-600 text-3xl mb-3"></i>
+                            <h4 class="text-lg font-semibold text-gray-800">Bắt nạt trên mạng</h4>
+                        </div>
+                        <ul class="text-sm text-gray-700 space-y-2">
+                            <li>• Quấy rối, đe dọa online</li>
+                            <li>• Tung tin xấu, ảnh nhạy cảm</li>
+                            <li>• Cô lập, tẩy chay</li>
+                            <li>• Gây tổn thương tâm lý</li>
+                        </ul>
+                    </div>
+
+                    <!-- Internet Addiction -->
+                    <div class="danger-card p-6 rounded-lg">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-mobile-alt text-red-600 text-3xl mb-3"></i>
+                            <h4 class="text-lg font-semibold text-gray-800">Nghiện mạng</h4>
+                        </div>
+                        <ul class="text-sm text-gray-700 space-y-2">
+                            <li>• Sử dụng mạng quá mức</li>
+                            <li>• Ảnh hưởng học tập, công việc</li>
+                            <li>• Suy giảm sức khỏe</li>
+                            <li>• Cô lập xã hội</li>
+                        </ul>
+                    </div>
+
+                    <!-- General Warning -->
+                    <div class="warning-card p-6 rounded-lg">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-shield-alt text-yellow-600 text-3xl mb-3"></i>
+                            <h4 class="text-lg font-semibold text-gray-800">Biện pháp phòng ngừa</h4>
+                        </div>
+                        <ul class="text-sm text-gray-700 space-y-2">
+                            <li>• Kiểm tra nguồn thông tin</li>
+                            <li>• Không chia sẻ thông tin nhạy cảm</li>
+                            <li>• Báo cáo hành vi xấu</li>
+                            <li>• Sử dụng mạng có ý thức</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Cyberbullying Details -->
+                <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg">
+                    <h4 class="text-xl font-semibold text-red-800 mb-4">
+                        <i class="fas fa-exclamation-circle mr-2"></i>
+                        Tại sao bắt nạt trên mạng nguy hiểm?
+                    </h4>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h5 class="font-semibold text-red-700 mb-3">Đặc điểm của bắt nạt mạng:</h5>
+                            <ul class="space-y-2 text-red-700">
+                                <li class="flex items-start">
+                                    <i class="fas fa-clock text-red-500 mt-1 mr-2"></i>
+                                    <span>Xảy ra dai dẳng, bất cứ lúc nào</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-mask text-red-500 mt-1 mr-2"></i>
+                                    <span>Kẻ bắt nạt có thể ẩn danh</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-users text-red-500 mt-1 mr-2"></i>
+                                    <span>Số người theo dõi có thể rất đông</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-heart-broken text-red-500 mt-1 mr-2"></i>
+                                    <span>Gây áp lực tâm lý nặng nề</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-red-700 mb-3">Hậu quả nghiêm trọng:</h5>
+                            <ul class="space-y-2 text-red-700">
+                                <li class="flex items-start">
+                                    <i class="fas fa-user-times text-red-500 mt-1 mr-2"></i>
+                                    <span>Nạn nhân tự cô lập</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-sad-tear text-red-500 mt-1 mr-2"></i>
+                                    <span>Dẫn đến trầm cảm</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-exclamation-triangle text-red-500 mt-1 mr-2"></i>
+                                    <span>Hành vi tiêu cực, tự hại</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-bomb text-red-500 mt-1 mr-2"></i>
+                                    <span><strong>Bắt nạt = Khủng bố mạng</strong></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Malware Section -->
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8 card-hover fade-in">
+                <div class="flex items-center mb-6">
+                    <div class="bg-purple-100 p-3 rounded-full mr-4">
+                        <i class="fas fa-virus text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Phần mềm độc hại (Malware)</h3>
+                </div>
+
+                <div class="bg-purple-50 border border-purple-200 rounded-lg p-6 mb-8">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-info-circle text-purple-600 text-xl mr-3"></i>
+                        <h4 class="text-lg font-semibold text-purple-800">Định nghĩa</h4>
+                    </div>
+                    <p class="text-purple-700">
+                        <strong>Malware</strong> (Malicious Software) là những phần mềm được viết ra với 
+                        <strong>ý đồ xấu</strong>, nhằm gây hại cho người dùng, chiếm đoạt thông tin 
+                        hoặc làm tổn hại hệ thống máy tính.
+                    </p>
+                </div>
+
+                <!-- Malware Types -->
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <!-- Virus -->
+                    <div class="bg-red-50 border-2 border-red-200 rounded-lg p-6">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-virus text-red-600 text-4xl mb-3 malware-icon"></i>
+                            <h4 class="text-xl font-bold text-red-800">VIRUS</h4>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-white p-3 rounded border-l-4 border-red-500">
+                                <h5 class="font-semibold text-red-700 mb-2">Đặc điểm:</h5>
+                                <ul class="text-sm text-red-600 space-y-1">
+                                    <li>• Không phải phần mềm hoàn chỉnh</li>
+                                    <li>• Chỉ là đoạn mã độc</li>
+                                    <li>• Phải gắn với phần mềm khác</li>
+                                    <li>• Lây lan qua việc chạy file nhiễm</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-3 rounded border-l-4 border-red-500">
+                                <h5 class="font-semibold text-red-700 mb-2">Cách hoạt động:</h5>
+                                <div class="text-xs text-red-600 space-y-1">
+                                    <div class="flex items-center">
+                                        <span class="bg-red-100 rounded-full w-4 h-4 flex items-center justify-center mr-2 text-xs">1</span>
+                                        <span>Chạy file nhiễm virus</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="bg-red-100 rounded-full w-4 h-4 flex items-center justify-center mr-2 text-xs">2</span>
+                                        <span>Mã độc vào bộ nhớ</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="bg-red-100 rounded-full w-4 h-4 flex items-center justify-center mr-2 text-xs">3</span>
+                                        <span>Chờ chạy file khác</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="bg-red-100 rounded-full w-4 h-4 flex items-center justify-center mr-2 text-xs">4</span>
+                                        <span>Chèn vào và lây lan</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Worm -->
+                    <div class="bg-orange-50 border-2 border-orange-200 rounded-lg p-6">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-bug text-orange-600 text-4xl mb-3 malware-icon"></i>
+                            <h4 class="text-xl font-bold text-orange-800">WORM (Sâu)</h4>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-white p-3 rounded border-l-4 border-orange-500">
+                                <h5 class="font-semibold text-orange-700 mb-2">Đặc điểm:</h5>
+                                <ul class="text-sm text-orange-600 space-y-1">
+                                    <li>• Phần mềm hoàn chỉnh</li>
+                                    <li>• Tự lây lan qua mạng</li>
+                                    <li>• Lợi dụng lỗ hổng bảo mật</li>
+                                    <li>• Dẫn dụ người dùng cài đặt</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-3 rounded border-l-4 border-orange-500">
+                                <h5 class="font-semibold text-orange-700 mb-2">Cách lừa phổ biến:</h5>
+                                <div class="text-xs text-orange-600 space-y-2">
+                                    <div class="bg-orange-100 p-2 rounded">
+                                        <i class="fas fa-envelope mr-1"></i>
+                                        "Bấm vào đây để nhận tin"
+                                    </div>
+                                    <div class="bg-orange-100 p-2 rounded">
+                                        <i class="fas fa-gift mr-1"></i>
+                                        "Tải về nhận quà miễn phí"
+                                    </div>
+                                    <div class="bg-orange-100 p-2 rounded">
+                                        <i class="fas fa-download mr-1"></i>
+                                        "Cập nhật phần mềm quan trọng"
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trojan -->
+                    <div class="bg-purple-50 border-2 border-purple-200 rounded-lg p-6">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-horse-head text-purple-600 text-4xl mb-3 malware-icon"></i>
+                            <h4 class="text-xl font-bold text-purple-800">TROJAN</h4>
+                            <p class="text-xs text-purple-600">(Ngựa thành Troa)</p>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-white p-3 rounded border-l-4 border-purple-500">
+                                <h5 class="font-semibold text-purple-700 mb-2">Các loại Trojan:</h5>
+                                <div class="space-y-2 text-xs">
+                                    <div class="flex items-center text-purple-600">
+                                        <i class="fas fa-spy text-purple-500 mr-2"></i>
+                                        <div>
+                                            <strong>Spyware:</strong> Ăn trộm thông tin
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center text-purple-600">
+                                        <i class="fas fa-keyboard text-purple-500 mr-2"></i>
+                                        <div>
+                                            <strong>Keylogger:</strong> Ghi phím bấm
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center text-purple-600">
+                                        <i class="fas fa-door-open text-purple-500 mr-2"></i>
+                                        <div>
+                                            <strong>Backdoor:</strong> Tạo cửa sau
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center text-purple-600">
+                                        <i class="fas fa-crown text-purple-500 mr-2"></i>
+                                        <div>
+                                            <strong>Rootkit:</strong> Chiếm quyền cao nhất
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Malware Effects -->
+                <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+                    <h4 class="text-lg font-semibold text-red-800 mb-4">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        Tác hại của phần mềm độc hại
+                    </h4>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h5 class="font-semibold text-red-700 mb-3">Virus & Worm:</h5>
+                            <ul class="space-y-2 text-red-600">
+                                <li class="flex items-start">
+                                    <i class="fas fa-virus text-red-500 mt-1 mr-2"></i>
+                                    <span>Lây lan nhanh chóng</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-trash-alt text-red-500 mt-1 mr-2"></i>
+                                    <span>Xóa dữ liệu quan trọng</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-laptop-medical text-red-500 mt-1 mr-2"></i>
+                                    <span>Làm hỏng phần mềm khác</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-stop-circle text-red-500 mt-1 mr-2"></i>
+                                    <span>Tê liệt hệ thống</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-red-700 mb-3">Trojan:</h5>
+                            <ul class="space-y-2 text-red-600">
+                                <li class="flex items-start">
+                                    <i class="fas fa-user-secret text-red-500 mt-1 mr-2"></i>
+                                    <span>Hoạt động nội gián</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-key text-red-500 mt-1 mr-2"></i>
+                                    <span>Đánh cắp mật khẩu</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-credit-card text-red-500 mt-1 mr-2"></i>
+                                    <span>Lấy thông tin tài khoản</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-eye text-red-500 mt-1 mr-2"></i>
+                                    <span>Theo dõi hoạt động</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prevention -->
+                <div class="safe-card p-6 rounded-lg">
+                    <h4 class="text-lg font-semibold text-green-800 mb-4">
+                        <i class="fas fa-shield-alt mr-2"></i>
+                        Biện pháp phòng chống
+                    </h4>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h5 class="font-semibold text-green-700 mb-3">Thói quen an toàn:</h5>
+                            <ul class="space-y-2 text-green-600">
+                                <li class="flex items-start">
+                                    <i class="fas fa-usb-drive text-green-500 mt-1 mr-2"></i>
+                                    <span>Cẩn thận với USB, thẻ nhớ</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-download text-green-500 mt-1 mr-2"></i>
+                                    <span>Kiểm tra file tải về</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-envelope text-green-500 mt-1 mr-2"></i>
+                                    <span>Không mở link lạ trong email</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-lock text-green-500 mt-1 mr-2"></i>
+                                    <span>Bảo mật mật khẩu tốt</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-green-700 mb-3">Công cụ bảo vệ:</h5>
+                            <ul class="space-y-2 text-green-600">
+                                <li class="flex items-start">
+                                    <i class="fas fa-shield-virus text-green-500 mt-1 mr-2"></i>
+                                    <span>Cài đặt phần mềm diệt virus</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-sync-alt text-green-500 mt-1 mr-2"></i>
+                                    <span>Cập nhật thường xuyên</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-fire text-green-500 mt-1 mr-2"></i>
+                                    <span>Bật tường lửa (Firewall)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-save text-green-500 mt-1 mr-2"></i>
+                                    <span>Sao lưu dữ liệu định kỳ</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simulation Section -->
+        <section id="simulation" class="mb-16">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Mô phỏng tình huống</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
+                <p class="text-gray-600 mt-4">Thực hành nhận diện nguy cơ qua các tình huống thực tế</p>
+            </div>
+
+            <!-- Scenario 1: Phishing Email -->
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8 card-hover fade-in">
+                <div class="flex items-center mb-6">
+                    <div class="bg-blue-100 p-3 rounded-full mr-4">
+                        <i class="fas fa-envelope text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Tình huống 1: Email đáng nghi</h3>
+                </div>
+
+                <div class="phishing-email rounded-lg p-6 mb-6">
+                    <div class="flex items-center justify-between mb-4 pb-2 border-b">
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-blue-600 mr-2"></i>
+                            <span class="font-semibold">Email mới</span>
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            <i class="fas fa-clock mr-1"></i>2 phút trước
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div><strong>Từ:</strong> security@vietcombank-official.com</div>
+                        <div><strong>Đến:</strong> bạn@email.com</div>
+                        <div><strong>Tiêu đề:</strong> 🚨 KHẨN CẤP: Tài khoản của bạn sẽ bị khóa!</div>
+                    </div>
+                    
+                    <div class="mt-4 p-4 bg-white rounded border">
+                        <p class="mb-3">Kính gửi quý khách hàng,</p>
+                        <p class="mb-3">
+                            Chúng tôi phát hiện hoạt động đáng nghi trên tài khoản của bạn. 
+                            Để bảo vệ tài khoản, vui lòng <strong class="text-red-600">xác thực ngay</strong> 
+                            trong vòng 24 giờ, nếu không tài khoản sẽ bị khóa vĩnh viễn.
+                        </p>
+                        <div class="text-center my-4">
+                            <button class="bg-red-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition duration-300">
+                                XÁC THỰC NGAY
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-600">
+                            Trân trọng,<br>
+                            Phòng Bảo mật - Vietcombank
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">
+                        <i class="fas fa-question-circle mr-2"></i>
+                        Bạn sẽ làm gì khi nhận được email này?
+                    </h4>
+                    <div class="space-y-3" id="scenario1">
+                        <div class="scenario-option border-2 border-gray-200 rounded-lg p-4 hover:bg-gray-50" data-answer="A">
+                            <div class="flex items-start">
+                                <span class="bg-red-100 text-red-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 mt-1">A</span>
+                                <div>
+                                    <div class="font-semibold">Nhấn vào nút "XÁC THỰC NGAY" ngay lập tức</div>
+                                    <div class="text-sm text-gray-600 mt-1">Vì sợ tài khoản bị khóa</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-option border-2 border-gray-200 rounded-lg p-4 hover:bg-gray-50" data-answer="B">
+                            <div class="flex items-start">
+                                <span class="bg-yellow-100 text-yellow-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 mt-1">B</span>
+                                <div>
+                                    <div class="font-semibold">Chuyển tiếp email cho bạn bè để hỏi ý kiến</div>
+                                    <div class="text-sm text-gray-600 mt-1">Để được tư vấn thêm</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-option border-2 border-gray-200 rounded-lg p-4 hover:bg-gray-50" data-answer="C">
+                            <div class="flex items-start">
+                                <span class="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 mt-1">C</span>
+                                <div>
+                                    <div class="font-semibold">Kiểm tra địa chỉ email và gọi trực tiếp ngân hàng</div>
+                                    <div class="text-sm text-gray-600 mt-1">Xác minh thông tin qua kênh chính thức</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-option border-2 border-gray-200 rounded-lg p-4 hover:bg-gray-50" data-answer="D">
+                            <div class="flex items-start">
+                                <span class="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 mt-1">D</span>
+                                <div>
+                                    <div class="font-semibold">Bỏ qua email và không làm gì cả</div>
+                                    <div class="text-sm text-gray-600 mt-1">Vì không quan tâm</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex space-x-4">
+                    <button onclick="checkScenario('scenario1', 'C')" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                        <i class="fas fa-check mr-2"></i>Kiểm tra đáp án
+                    </button>
+                    <button onclick="resetScenario('scenario1')" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition duration-300">
+                        <i class="fas fa-redo mr-2"></i>Làm lại
+                    </button>
+                </div>
+                <div id="scenario1-result" class="mt-4 hidden"></div>
+            </div>
+
+            <!-- Scenario 2: Social Media Cyberbullying -->
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8 card-hover fade-in">
+                <div class="flex items-center mb-6">
+                    <div class="bg-purple-100 p-3 rounded-full mr-4">
+                        <i class="fas fa-users text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Tình huống 2: Bắt nạt trên mạng xã hội</h3>
+                </div>
+
+                <div class="bg-gray-100 rounded-lg p-6 mb-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                            A
+                        </div>
+                        <div>
+                            <div class="font-semibold">An Nguyễn</div>
+                            <div class="text-sm text-gray-500">5 phút trước</div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg mb-4">
+                        <p>Hôm nay mình rất vui vì được khen ngợi trong buổi thuyết trình! 😊</p>
+                        <div class="mt-2 flex space-x-4 text-sm text-gray-500">
+                            <span><i class="fas fa-heart mr-1"></i>12 thích</span>
+                            <span><i class="fas fa-comment mr-1"></i>8 bình luận</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">B</div>
+                            <div class="bg-white p-3 rounded-lg flex-1">
+                                <div class="font-semibold text-sm">Bình Trần</div>
+                                <div class="text-sm">Chúc mừng bạn! Bạn thuyết trình rất hay! 👏</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white text-sm font-bold">?</div>
+                            <div class="bg-red-50 border border-red-200 p-3 rounded-lg flex-1">
+                                <div class="font-semibold text-sm text-red-700">Tài khoản ẩn danh</div>
+                                <div class="text-sm text-red-600">
+                                    Thuyết trình gì mà tệ thế? Chắc thầy cô khen vì thương hại thôi 😂 
+                                    Mấy bạn trong lớp ai cũng biết bạn này học dốt lắm!
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white text-sm font-bold">?</div>
+                            <div class="bg-red-50 border border-red-200 p-3 rounded-lg flex-1">
+                                <div class="font-semibold text-sm text-red-700">Tài khoản ẩn danh khác</div>
+                                <div class="text-sm text-red-600">
+                                    Đúng rồi! Mình cũng thấy thuyết trình tệ lắm. Đừng có khoe nữa! 🤮
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">
+                        <i class="fas fa-question-circle mr-2"></i>
+                        Nếu bạn là An, bạn sẽ xử lý tình huống này như thế nào?
+                    </h4>
+                    <div class="space-y-3" id="scenario2">
+                        <div class="scenario-option border-2 border-gray-200 rounded-lg p-4 hover:bg-gray-50" data-answer="A">
+                            <div class="flex items-start">
+                                <span class="bg-red-100 text-red-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 mt-1">A</span>
+                                <div>
+                                    <div class="font-semibold">Phản pháo lại bằng những lời lẽ gay gắt</div>
+                                    <div class="text-sm text-gray-600 mt-1">Để bảo vệ danh tiếng của mình</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-option border-2 border-gray-200 rounded-lg p-4 hover:bg-gray-50" data-answer="B">
+                            <div class="flex items-start">
+                                <span class="bg-yellow-100 text-yellow-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 mt-1">B</span>
+                                <div>
+                                    <div class="font-semibold">Xóa bài đăng và không sử dụng mạng xã hội nữa</div>
+                                    <div class="text-sm text-gray-600 mt-1">Để tránh bị bắt nạt tiếp</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-option border-2 border-gray-200 rounded-lg p-4 hover:bg-gray-50" data-answer="C">
+                            <div class="flex items-start">
+                                <span class="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 mt-1">C</span>
+                                <div>
+                                    <div class="font-semibold">Chặn/báo cáo tài khoản xấu và tìm sự hỗ trợ</div>
+                                    <div class="text-sm text-gray-600 mt-1">Từ thầy cô, gia đình hoặc bạn bè</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-option border-2 border-gray-200 rounded-lg p-4 hover:bg-gray-50" data-answer="D">
+                            <div class="flex items-start">
+                                <span class="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 mt-1">D</span>
+                                <div>
+                                    <div class="font-semibold">Bỏ qua và giả vờ như không có gì xảy ra</div>
+                                    <div class="text-sm text-gray-600 mt-1">Hy vọng họ sẽ tự dừng lại</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex space-x-4">
+                    <button onclick="checkScenario('scenario2', 'C')" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition duration-300">
+                        <i class="fas fa-check mr-2"></i>Kiểm tra đáp án
+                    </button>
+                    <button onclick="resetScenario('scenario2')" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition duration-300">
+                        <i class="fas fa-redo mr-2"></i>Làm lại
+                    </button>
+                </div>
+                <div id="scenario2-result" class="mt-4 hidden"></div>
+            </div>
+
+            <!-- Scenario 3: Suspicious Download -->
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8 card-hover fade-in">
+                <div class="flex items-center mb-6">
+                    <div class="bg-orange-100 p-3 rounded-full mr-4">
+                        <i class="fas fa-download text-orange-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Tình huống 3: Tải phần mềm đáng nghi</h3>
+                </div>
+
+                <div class="simulation-screen rounded-lg p-6 mb-6">
+                    <div class="mb-4">
+                        <div class="text-green-400">C:\Users\Student> </div>
+                    </div>
+                    <div class="bg-gray-800 border border-gray-600 rounded p-4 mb-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-blue-400">🌐 Trình duyệt web</span>
+                            <span class="text-gray-400">×</span>
+                        </div>
+                        <div class="bg-gray-700 p-2 rounded mb-3">
+                            <span class="text-gray-300">🔍 free-games-download-now.exe</span>
+                        </div>
+                        <div class="bg-yellow-900 border border-yellow-600 p-3 rounded">
+                            <div class="text-yellow-300 font-bold mb-2">⚠️ CẢNH BÁO BẢO MẬT</div>
+                            <div class="text-yellow-200 text-sm space-y-1">
+                                <div>• File: free-games-download-now.exe</div>
+                                <div>• Kích thước: 2.3 MB (nhỏ bất thường cho game)</div>
+                                <div>• Nguồn: website không rõ ràng</div>
+                                <div>• Chưa được kiểm tra bởi phần mềm diệt virus</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-green-400">
+                        Bạn có muốn tiếp tục tải xuống? [Y/N]: <span class="animate-pulse">_</span>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">
+                        <i class="fas fa-question-circle mr-2"></i>
+                        Bạn sẽ quyết định như thế nào?
+                    </h4>
+                    <div class="space-y-3" id="scenario3">
+                        <div class="scenario-option border-2 border-gray-200 rounded-lg p-4 hover:bg-gray-50" data-answer="A">
+                            <div class="flex items-start">
+                                <span class="bg-red-100 text-red-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 mt-1">A</span>
+                                <div>
+                                    <div class="font-semibold">Tải xuống ngay vì muốn chơi game miễn phí</div>
+                                    <div class="text-sm text-gray-600 mt-1">Bỏ qua cảnh báo bảo mật</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-option border-2 border-gray-200 rounded-lg p-4 hover:bg-gray-50" data-answer="B">
+                            <div class="flex items-start">
+                                <span class="bg-yellow-100 text-yellow-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 mt-1">B</span>
+                                <div>
+                                    <div class="font-semibold">Tải về nhưng không chạy, để dành sau</div>
+                                    <div class="text-sm text-gray-600 mt-1">Sẽ kiểm tra kỹ hơn sau</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-option border-2 border-gray-200 rounded-lg p-4 hover:bg-gray-50" data-answer="C">
+                            <div class="flex items-start">
+                                <span class="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 mt-1">C</span>
+                                <div>
+                                    <div class="font-semibold">Hủy tải xuống và tìm nguồn game chính thức</div>
+                                    <div class="text-sm text-gray-600 mt-1">Từ Steam, App Store hoặc website chính thức</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-option border-2 border-gray-200 rounded-lg p-4 hover:bg-gray-50" data-answer="D">
+                            <div class="flex items-start">
+                                <span class="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 mt-1">D</span>
+                                <div>
+                                    <div class="font-semibold">Tải về và quét virus trước khi chạy</div>
+                                    <div class="text-sm text-gray-600 mt-1">Sử dụng phần mềm diệt virus</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex space-x-4">
+                    <button onclick="checkScenario('scenario3', 'C')" class="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition duration-300">
+                        <i class="fas fa-check mr-2"></i>Kiểm tra đáp án
+                    </button>
+                    <button onclick="resetScenario('scenario3')" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition duration-300">
+                        <i class="fas fa-redo mr-2"></i>Làm lại
+                    </button>
+                </div>
+                <div id="scenario3-result" class="mt-4 hidden"></div>
+            </div>
+
+            <!-- Interactive Malware Detection Game -->
+            <div class="bg-white rounded-xl shadow-lg p-8 card-hover fade-in">
+                <div class="flex items-center mb-6">
+                    <div class="bg-red-100 p-3 rounded-full mr-4">
+                        <i class="fas fa-gamepad text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Trò chơi: Thám tử phát hiện Malware</h3>
+                </div>
+
+                <div class="bg-gray-100 rounded-lg p-6 mb-6">
+                    <div class="text-center mb-4">
+                        <h4 class="text-lg font-semibold text-gray-800">
+                            <i class="fas fa-search mr-2"></i>
+                            Nhiệm vụ: Phân loại các file sau đây
+                        </h4>
+                        <p class="text-gray-600">Xác định file nào an toàn, file nào nguy hiểm</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" id="malware-game">
+                        <!-- Files will be generated by JavaScript -->
+                    </div>
+
+                    <div class="mt-6 text-center">
+                        <div class="flex justify-center space-x-6 mb-4">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-600" id="safe-count">0</div>
+                                <div class="text-sm text-gray-600">An toàn</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-red-600" id="danger-count">0</div>
+                                <div class="text-sm text-gray-600">Nguy hiểm</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-blue-600" id="score">0</div>
+                                <div class="text-sm text-gray-600">Điểm</div>
+                            </div>
+                        </div>
+                        <button onclick="resetMalwareGame()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                            <i class="fas fa-redo mr-2"></i>Chơi lại
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Test Section -->
+        <section id="quiz" class="mb-16">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Hệ thống kiểm tra cuối bài</h2>
+                <div class="w-24 h-1 bg-red-600 mx-auto"></div>
+                <p class="text-gray-600 mt-4">Bài kiểm tra gồm 10 câu hỏi được chọn ngẫu nhiên từ kho 40 câu</p>
+            </div>
+
+            <!-- Final Test System -->
+            <div class="bg-white rounded-xl shadow-lg p-6 card-hover fade-in">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="bg-red-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-clipboard-check text-red-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800">Bài kiểm tra cuối bài</h3>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-600">Thời gian: <span id="timer" class="font-bold text-red-600">15:00</span></div>
+                        <div class="text-sm text-gray-600">Điểm: <span id="final-score" class="font-bold text-blue-600">0/10</span></div>
+                    </div>
+                </div>
+
+                <!-- Test Controls -->
+                <div class="flex justify-center space-x-4 mb-6">
+                    <button onclick="startFinalTest()" id="start-test-btn" class="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 transition duration-300 font-semibold">
+                        <i class="fas fa-play mr-2"></i>Bắt đầu kiểm tra
+                    </button>
+                    <button onclick="submitFinalTest()" id="submit-test-btn" class="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 transition duration-300 font-semibold hidden">
+                        <i class="fas fa-check mr-2"></i>Nộp bài
+                    </button>
+                    <button onclick="resetFinalTest()" id="reset-test-btn" class="bg-gray-600 text-white px-8 py-3 rounded-lg hover:bg-gray-700 transition duration-300 font-semibold hidden">
+                        <i class="fas fa-redo mr-2"></i>Làm lại
+                    </button>
+                </div>
+
+                <!-- Test Questions Container -->
+                <div id="final-test-container" class="hidden">
+                    <div class="grid md:grid-cols-2 gap-4" id="final-test-questions">
+                        <!-- Questions will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Test Results -->
+                <div id="final-test-results" class="hidden mt-6">
+                    <div class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-6">
+                        <div class="text-center">
+                            <i class="fas fa-trophy text-4xl text-yellow-500 mb-4"></i>
+                            <h4 class="text-2xl font-bold text-gray-800 mb-2">Kết quả bài kiểm tra</h4>
+                            <div class="text-3xl font-bold mb-4" id="final-result-score">0/10</div>
+                            <div class="text-lg mb-4" id="final-result-percentage">0%</div>
+                            <div class="text-gray-600" id="final-result-message">Chúc mừng bạn đã hoàn thành bài kiểm tra!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section class="mb-16">
+            <div class="bg-gradient-to-r from-red-600 to-purple-600 rounded-xl shadow-lg p-8 text-white">
+                <div class="text-center mb-8">
+                    <i class="fas fa-shield-alt text-4xl mb-4"></i>
+                    <h2 class="text-3xl font-bold mb-4">Tóm tắt bài học</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    <div>
+                        <i class="fas fa-exclamation-triangle text-3xl mb-3"></i>
+                        <h3 class="text-lg font-semibold mb-2">5 Nguy cơ mạng</h3>
+                        <p class="text-red-100 text-sm">Tin giả, lừa đảo, lộ thông tin, bắt nạt, nghiện mạng</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-virus text-3xl mb-3"></i>
+                        <h3 class="text-lg font-semibold mb-2">3 Loại Malware</h3>
+                        <p class="text-red-100 text-sm">Virus, Worm, Trojan với cách hoạt động khác nhau</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-user-secret text-3xl mb-3"></i>
+                        <h3 class="text-lg font-semibold mb-2">Bắt nạt mạng</h3>
+                        <p class="text-red-100 text-sm">Dai dẳng, ẩn danh, áp lực lớn = Khủng bố mạng</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-shield-alt text-3xl mb-3"></i>
+                        <h3 class="text-lg font-semibold mb-2">Phòng chống</h3>
+                        <p class="text-red-100 text-sm">Cẩn thận, kiểm tra, báo cáo, sử dụng có ý thức</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex justify-center items-center mb-4">
+                <i class="fas fa-shield-alt text-2xl mr-3"></i>
+                <span class="text-xl font-semibold">Tin học 10 - An toàn mạng</span>
+            </div>
+            <p class="text-gray-400">Bảo vệ bản thân trong không gian số</p>
+        </div>
+    </footer>
+
+    <script>
+        // Question Bank (40 questions)
+        const questionBank = [
+            {
+                question: "Đặc điểm nào sau đây làm cho bắt nạt trên mạng nguy hiểm hơn bắt nạt trực tiếp?",
+                options: ["Có thể xảy ra dai dẳng, bất cứ lúc nào và kẻ bắt nạt có thể ẩn danh", "Chỉ xảy ra trong giờ học", "Dễ dàng ngăn chặn hơn", "Ít người biết đến hơn"],
+                correct: 0
+            },
+            {
+                question: "Sự khác biệt chính giữa Virus và Worm là gì?",
+                options: ["Virus là phần mềm hoàn chỉnh, Worm chỉ là đoạn mã", "Virus phải gắn với phần mềm khác, Worm là phần mềm hoàn chỉnh", "Virus lây qua mạng, Worm lây qua USB", "Không có sự khác biệt"],
+                correct: 1
+            },
+            {
+                question: "Trojan là loại malware nào?",
+                options: ["Virus tự nhân bản", "Phần mềm giả mạo có chứa mã độc", "Sâu máy tính lây lan qua mạng", "Phần mềm diệt virus"],
+                correct: 1
+            },
+            {
+                question: "Keylogger thuộc loại Trojan nào?",
+                options: ["Spyware", "Backdoor", "Rootkit", "Worm"],
+                correct: 0
+            },
+            {
+                question: "Đâu là dấu hiệu của email lừa đảo (phishing)?",
+                options: ["Từ địa chỉ email chính thức", "Yêu cầu hành động khẩn cấp", "Nội dung rõ ràng, chính xác", "Không có link đính kèm"],
+                correct: 1
+            },
+            {
+                question: "Biện pháp nào hiệu quả nhất để phòng chống malware?",
+                options: ["Chỉ sử dụng USB của bạn bè", "Cài đặt phần mềm diệt virus và cập nhật thường xuyên", "Tải phần mềm từ bất kỳ website nào", "Không sử dụng internet"],
+                correct: 1
+            },
+            {
+                question: "Tin giả trên mạng có thể gây ra hậu quả gì?",
+                options: ["Chỉ ảnh hưởng đến người đăng", "Gây hoang mang dư luận và ảnh hưởng tâm lý", "Không có tác hại gì", "Chỉ ảnh hưởng trong thời gian ngắn"],
+                correct: 1
+            },
+            {
+                question: "Khi bị bắt nạt trên mạng, bạn nên làm gì?",
+                options: ["Phản pháo bằng lời lẽ gay gắt", "Chặn/báo cáo và tìm sự hỗ trợ", "Xóa tài khoản mạng xã hội", "Bỏ qua và hy vọng tự khỏi"],
+                correct: 1
+            },
+            {
+                question: "Rootkit là gì?",
+                options: ["Phần mềm diệt virus", "Trojan chiếm quyền cao nhất của hệ thống", "Virus lây qua email", "Phần mềm bảo mật"],
+                correct: 1
+            },
+            {
+                question: "Đâu là nguy cơ của việc chia sẻ thông tin cá nhân quá mức trên mạng?",
+                options: ["Tăng số lượng bạn bè", "Bị theo dõi và mất quyền riêng tư", "Được nhiều người biết đến", "Không có nguy cơ gì"],
+                correct: 1
+            },
+            {
+                question: "Worm lây lan chủ yếu qua đâu?",
+                options: ["Chỉ qua USB", "Qua mạng internet và lỗ hổng bảo mật", "Chỉ qua email", "Không thể lây lan"],
+                correct: 1
+            },
+            {
+                question: "Spyware có chức năng gì?",
+                options: ["Bảo vệ máy tính", "Ăn trộm thông tin người dùng", "Tăng tốc máy tính", "Diệt virus"],
+                correct: 1
+            },
+            {
+                question: "Đâu là dấu hiệu của nghiện mạng?",
+                options: ["Sử dụng mạng 1-2 giờ/ngày", "Sử dụng mạng quá mức, ảnh hưởng học tập và sức khỏe", "Chỉ sử dụng mạng để học tập", "Sử dụng mạng có kế hoạch"],
+                correct: 1
+            },
+            {
+                question: "Backdoor trong Trojan có tác dụng gì?",
+                options: ["Tăng tốc độ mạng", "Tạo cửa sau để hacker xâm nhập", "Bảo vệ dữ liệu", "Sao lưu file"],
+                correct: 1
+            },
+            {
+                question: "Khi nhận được link lạ qua tin nhắn, bạn nên?",
+                options: ["Nhấn ngay để xem", "Kiểm tra nguồn gốc và không nhấn nếu đáng nghi", "Chuyển tiếp cho bạn bè", "Lưu lại để xem sau"],
+                correct: 1
+            },
+            {
+                question: "Firewall có tác dụng gì?",
+                options: ["Tăng tốc internet", "Chặn các kết nối mạng đáng nghi", "Tải phần mềm miễn phí", "Xóa virus"],
+                correct: 1
+            },
+            {
+                question: "Đâu là cách an toàn khi tải phần mềm?",
+                options: ["Tải từ bất kỳ website nào", "Tải từ nguồn chính thức và uy tín", "Tải từ link bạn bè gửi", "Tải từ email quảng cáo"],
+                correct: 1
+            },
+            {
+                question: "Virus cần điều kiện gì để hoạt động?",
+                options: ["Tự hoạt động độc lập", "Phải gắn với phần mềm khác và được chạy", "Chỉ cần kết nối mạng", "Không cần điều kiện gì"],
+                correct: 1
+            },
+            {
+                question: "Bắt nạt trên mạng được gọi là gì?",
+                options: ["Cyberbullying - Khủng bố mạng", "Gaming online", "Social networking", "Digital learning"],
+                correct: 0
+            },
+            {
+                question: "Đâu là biện pháp bảo vệ mật khẩu tốt nhất?",
+                options: ["Dùng mật khẩu đơn giản dễ nhớ", "Dùng mật khẩu phức tạp và khác nhau cho mỗi tài khoản", "Chia sẻ mật khẩu với bạn bè", "Ghi mật khẩu ra giấy"],
+                correct: 1
+            },
+            {
+                question: "Malware là viết tắt của từ gì?",
+                options: ["Malicious Software", "Major Software", "Manual Software", "Modern Software"],
+                correct: 0
+            },
+            {
+                question: "Khi máy tính bị nhiễm virus, triệu chứng nào thường xuất hiện?",
+                options: ["Máy chạy nhanh hơn", "Máy chạy chậm, xuất hiện file lạ, mất dữ liệu", "Không có triệu chứng gì", "Màn hình sáng hơn"],
+                correct: 1
+            },
+            {
+                question: "Đâu là cách xử lý khi phát hiện bị lừa đảo online?",
+                options: ["Tiếp tục giao dịch", "Dừng ngay và báo cáo cho cơ quan chức năng", "Chuyển tiền thêm", "Không làm gì cả"],
+                correct: 1
+            },
+            {
+                question: "Phần mềm diệt virus cần được cập nhật vì sao?",
+                options: ["Để tốn dung lượng ổ cứng", "Để nhận diện các virus mới xuất hiện", "Để làm chậm máy tính", "Không cần cập nhật"],
+                correct: 1
+            },
+            {
+                question: "USB từ nguồn không rõ có thể chứa gì?",
+                options: ["Chỉ chứa dữ liệu an toàn", "Có thể chứa virus hoặc malware", "Chỉ chứa nhạc và phim", "Không thể chứa gì nguy hiểm"],
+                correct: 1
+            },
+            {
+                question: "Khi sử dụng WiFi công cộng, bạn nên?",
+                options: ["Truy cập tất cả website", "Cẩn thận với thông tin nhạy cảm và sử dụng VPN", "Tải phần mềm tùy ý", "Chia sẻ mật khẩu"],
+                correct: 1
+            },
+            {
+                question: "Đâu là dấu hiệu của website lừa đảo?",
+                options: ["Có chứng chỉ SSL", "URL giống website thật nhưng có sai khác nhỏ", "Tải nhanh", "Giao diện đẹp"],
+                correct: 1
+            },
+            {
+                question: "Sao lưu dữ liệu có tác dụng gì trong việc chống malware?",
+                options: ["Không có tác dụng gì", "Giúp khôi phục dữ liệu khi bị tấn công", "Làm chậm máy tính", "Tăng nguy cơ nhiễm virus"],
+                correct: 1
+            },
+            {
+                question: "Khi nhận email yêu cầu cập nhật thông tin tài khoản ngân hàng, bạn nên?",
+                options: ["Cập nhật ngay qua link trong email", "Liên hệ trực tiếp ngân hàng để xác minh", "Chuyển tiếp cho người khác", "Bỏ qua hoàn toàn"],
+                correct: 1
+            },
+            {
+                question: "Đâu là hành vi bắt nạt trên mạng?",
+                options: ["Khen ngợi bạn bè", "Tung tin xấu, đe dọa, quấy rối online", "Chia sẻ kiến thức", "Chúc mừng sinh nhật"],
+                correct: 1
+            },
+            {
+                question: "Tại sao không nên sử dụng phần mềm crack?",
+                options: ["Vì tốn tiền", "Vì thường chứa malware và vi phạm bản quyền", "Vì chạy chậm", "Vì không có tính năng đầy đủ"],
+                correct: 1
+            },
+            {
+                question: "Đâu là cách nhận biết tin giả trên mạng?",
+                options: ["Tin có nhiều like", "Kiểm tra nguồn gốc và so sánh với nhiều nguồn tin khác", "Tin được chia sẻ nhiều", "Tin có hình ảnh đẹp"],
+                correct: 1
+            },
+            {
+                question: "Khi tải file từ internet, bạn nên?",
+                options: ["Tải và chạy ngay", "Quét virus trước khi mở", "Chia sẻ ngay cho bạn bè", "Lưu vào thư mục hệ thống"],
+                correct: 1
+            },
+            {
+                question: "Đâu là tác hại của việc lộ thông tin cá nhân?",
+                options: ["Được nhiều người biết đến", "Bị lạm dụng để lừa đảo hoặc làm tổn hại danh tiếng", "Tăng số lượng bạn bè", "Không có tác hại gì"],
+                correct: 1
+            },
+            {
+                question: "Phần mềm nào sau đây là malware?",
+                options: ["Microsoft Word", "Keylogger", "Google Chrome", "Adobe Photoshop"],
+                correct: 1
+            },
+            {
+                question: "Khi máy tính có dấu hiệu lạ, bạn nên?",
+                options: ["Tiếp tục sử dụng bình thường", "Quét virus và kiểm tra hệ thống", "Tắt máy vĩnh viễn", "Cài thêm phần mềm"],
+                correct: 1
+            },
+            {
+                question: "Đâu là cách bảo vệ trẻ em khỏi nguy cơ trên mạng?",
+                options: ["Cấm sử dụng internet hoàn toàn", "Giáo dục, giám sát và sử dụng phần mềm lọc nội dung", "Để trẻ tự do hoàn toàn", "Chỉ cho dùng 5 phút/ngày"],
+                correct: 1
+            },
+            {
+                question: "Tại sao bắt nạt trên mạng lại được gọi là 'khủng bố mạng'?",
+                options: ["Vì sử dụng bom", "Vì gây áp lực tâm lý nghiêm trọng và dai dẳng", "Vì chỉ xảy ra ở nước ngoài", "Vì không có tác hại gì"],
+                correct: 1
+            },
+            {
+                question: "Đâu là nguyên tắc vàng khi sử dụng mạng xã hội?",
+                options: ["Chia sẻ mọi thông tin cá nhân", "Suy nghĩ trước khi đăng và bảo vệ thông tin riêng tư", "Kết bạn với mọi người", "Tin tưởng mọi thông tin đọc được"],
+                correct: 1
+            },
+            {
+                question: "File .exe từ nguồn không rõ ràng có nguy cơ gì?",
+                options: ["Hoàn toàn an toàn", "Có thể chứa virus hoặc malware nguy hiểm", "Chỉ là file văn bản", "Không thể chạy được"],
+                correct: 1
+            }
+        ];
+
+        // Final Test Variables
+        let currentTest = [];
+        let testAnswers = {};
+        let testTimer = null;
+        let testTimeLeft = 900; // 15 minutes
+
+        // Progress tracking
+        let completedSections = 0;
+        const totalSections = 4;
+
+        function updateProgress() {
+            const progress = (completedSections / totalSections) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('progress-text').textContent = Math.round(progress) + '%';
+        }
+
+        // Final Test Functions
+        function startFinalTest() {
+            // Generate random 10 questions
+            const shuffled = [...questionBank].sort(() => 0.5 - Math.random()).slice(0, 10);
+            currentTest = shuffled;
+            testAnswers = {};
+            testTimeLeft = 900;
+            
+            // Show test container
+            document.getElementById('final-test-container').classList.remove('hidden');
+            document.getElementById('start-test-btn').classList.add('hidden');
+            document.getElementById('submit-test-btn').classList.remove('hidden');
+            document.getElementById('reset-test-btn').classList.remove('hidden');
+            document.getElementById('final-test-results').classList.add('hidden');
+            
+            // Generate questions
+            generateTestQuestions();
+            
+            // Start timer
+            startTimer();
+        }
+
+        function generateTestQuestions() {
+            const container = document.getElementById('final-test-questions');
+            container.innerHTML = '';
+            
+            currentTest.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'test-question';
+                
+                let optionsHtml = '';
+                question.options.forEach((option, optIndex) => {
+                    optionsHtml += `
+                        <div class="test-option" onclick="selectTestAnswer(${index}, ${optIndex})" data-question="${index}" data-option="${optIndex}">
+                            <span class="font-medium">${String.fromCharCode(65 + optIndex)}.</span> ${option}
+                        </div>
+                    `;
+                });
+                
+                questionDiv.innerHTML = `
+                    <div class="mb-2">
+                        <h4 class="font-semibold text-gray-800 text-sm">Câu ${index + 1}: ${question.question}</h4>
+                    </div>
+                    <div class="space-y-1">
+                        ${optionsHtml}
+                    </div>
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+        }
+
+        function selectTestAnswer(questionIndex, optionIndex) {
+            // Remove previous selection for this question
+            const questionOptions = document.querySelectorAll(`[data-question="${questionIndex}"]`);
+            questionOptions.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            const selectedOption = document.querySelector(`[data-question="${questionIndex}"][data-option="${optionIndex}"]`);
+            selectedOption.classList.add('selected');
+            
+            // Store answer
+            testAnswers[questionIndex] = optionIndex;
+            
+            // Update score display
+            updateTestScore();
+        }
+
+        function updateTestScore() {
+            const answered = Object.keys(testAnswers).length;
+            document.getElementById('final-score').textContent = `${answered}/10`;
+        }
+
+        function startTimer() {
+            testTimer = setInterval(() => {
+                testTimeLeft--;
+                const minutes = Math.floor(testTimeLeft / 60);
+                const seconds = testTimeLeft % 60;
+                document.getElementById('timer').textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (testTimeLeft <= 0) {
+                    clearInterval(testTimer);
+                    submitFinalTest();
+                }
+            }, 1000);
+        }
+
+        function submitFinalTest() {
+            clearInterval(testTimer);
+            
+            let correctAnswers = 0;
+            
+            // Check answers and show results
+            currentTest.forEach((question, index) => {
+                const userAnswer = testAnswers[index];
+                const correctAnswer = question.correct;
+                const questionOptions = document.querySelectorAll(`[data-question="${index}"]`);
+                
+                questionOptions.forEach((option, optIndex) => {
+                    if (optIndex === correctAnswer) {
+                        option.classList.add('correct');
+                    } else if (optIndex === userAnswer && userAnswer !== correctAnswer) {
+                        option.classList.add('incorrect');
+                    }
+                });
+                
+                if (userAnswer === correctAnswer) {
+                    correctAnswers++;
+                }
+            });
+            
+            // Show results
+            const percentage = Math.round((correctAnswers / 10) * 100);
+            document.getElementById('final-result-score').textContent = `${correctAnswers}/10`;
+            document.getElementById('final-result-percentage').textContent = `${percentage}%`;
+            
+            let message = '';
+            if (percentage >= 90) {
+                message = 'Xuất sắc! Bạn đã nắm vững kiến thức về an toàn mạng!';
+            } else if (percentage >= 70) {
+                message = 'Tốt! Bạn đã hiểu khá tốt về các nguy cơ trên mạng.';
+            } else if (percentage >= 50) {
+                message = 'Khá! Bạn cần ôn tập thêm một số kiến thức.';
+            } else {
+                message = 'Cần cố gắng hơn! Hãy xem lại lý thuyết và làm lại bài kiểm tra.';
+            }
+            
+            document.getElementById('final-result-message').textContent = message;
+            document.getElementById('final-test-results').classList.remove('hidden');
+            document.getElementById('submit-test-btn').classList.add('hidden');
+            
+            // Update progress
+            if (!document.getElementById('final-test-container').dataset.completed) {
+                completedSections++;
+                document.getElementById('final-test-container').dataset.completed = 'true';
+                updateProgress();
+            }
+        }
+
+        function resetFinalTest() {
+            clearInterval(testTimer);
+            currentTest = [];
+            testAnswers = {};
+            testTimeLeft = 900;
+            
+            document.getElementById('final-test-container').classList.add('hidden');
+            document.getElementById('final-test-results').classList.add('hidden');
+            document.getElementById('start-test-btn').classList.remove('hidden');
+            document.getElementById('submit-test-btn').classList.add('hidden');
+            document.getElementById('reset-test-btn').classList.add('hidden');
+            document.getElementById('timer').textContent = '15:00';
+            document.getElementById('final-score').textContent = '0/10';
+        }
+
+        // Malware Detection Game
+        const gameFiles = [
+            { name: 'document.pdf', type: 'safe', icon: 'fas fa-file-pdf', color: 'text-red-500' },
+            { name: 'photo.jpg', type: 'safe', icon: 'fas fa-image', color: 'text-blue-500' },
+            { name: 'music.mp3', type: 'safe', icon: 'fas fa-music', color: 'text-purple-500' },
+            { name: 'free-money.exe', type: 'danger', icon: 'fas fa-virus', color: 'text-red-600' },
+            { name: 'update-flash.exe', type: 'danger', icon: 'fas fa-bug', color: 'text-red-600' },
+            { name: 'game-crack.zip', type: 'danger', icon: 'fas fa-skull-crossbones', color: 'text-red-600' },
+            { name: 'presentation.pptx', type: 'safe', icon: 'fas fa-file-powerpoint', color: 'text-orange-500' },
+            { name: 'video.mp4', type: 'safe', icon: 'fas fa-video', color: 'text-green-500' },
+            { name: 'keylogger.exe', type: 'danger', icon: 'fas fa-virus', color: 'text-red-600' },
+            { name: 'homework.docx', type: 'safe', icon: 'fas fa-file-word', color: 'text-blue-600' },
+            { name: 'trojan-horse.exe', type: 'danger', icon: 'fas fa-horse-head', color: 'text-red-600' },
+            { name: 'spreadsheet.xlsx', type: 'safe', icon: 'fas fa-file-excel', color: 'text-green-600' }
+        ];
+
+        let gameScore = 0;
+        let safeCount = 0;
+        let dangerCount = 0;
+
+        function initMalwareGame() {
+            const container = document.getElementById('malware-game');
+            container.innerHTML = '';
+            
+            // Shuffle and take 8 files
+            const shuffled = [...gameFiles].sort(() => 0.5 - Math.random()).slice(0, 8);
+            
+            shuffled.forEach((file, index) => {
+                const fileDiv = document.createElement('div');
+                fileDiv.className = 'bg-white border-2 border-gray-200 rounded-lg p-4 text-center cursor-pointer hover:shadow-lg transition duration-300';
+                fileDiv.innerHTML = `
+                    <i class="${file.icon} ${file.color} text-3xl mb-2"></i>
+                    <div class="font-semibold text-sm text-gray-800">${file.name}</div>
+                    <div class="mt-3 space-x-2">
+                        <button onclick="classifyFile(${index}, 'safe', this)" class="bg-green-100 text-green-700 px-3 py-1 rounded text-xs hover:bg-green-200">
+                            <i class="fas fa-check mr-1"></i>An toàn
+                        </button>
+                        <button onclick="classifyFile(${index}, 'danger', this)" class="bg-red-100 text-red-700 px-3 py-1 rounded text-xs hover:bg-red-200">
+                            <i class="fas fa-times mr-1"></i>Nguy hiểm
+                        </button>
+                    </div>
+                `;
+                fileDiv.dataset.fileType = file.type;
+                fileDiv.dataset.fileIndex = index;
+                container.appendChild(fileDiv);
+            });
+        }
+
+        function classifyFile(index, classification, button) {
+            const fileDiv = button.closest('.bg-white');
+            const actualType = fileDiv.dataset.fileType;
+            const buttons = fileDiv.querySelectorAll('button');
+            
+            // Disable all buttons for this file
+            buttons.forEach(btn => btn.disabled = true);
+            
+            if (classification === actualType) {
+                // Correct classification
+                fileDiv.classList.add('border-green-500', 'bg-green-50');
+                button.classList.add('bg-green-500', 'text-white');
+                gameScore += 10;
+                
+                if (classification === 'safe') {
+                    safeCount++;
+                } else {
+                    dangerCount++;
+                }
+            } else {
+                // Incorrect classification
+                fileDiv.classList.add('border-red-500', 'bg-red-50');
+                button.classList.add('bg-red-500', 'text-white');
+                
+                // Show correct answer
+                const correctButton = Array.from(buttons).find(btn => 
+                    btn.textContent.includes(actualType === 'safe' ? 'An toàn' : 'Nguy hiểm')
+                );
+                if (correctButton) {
+                    correctButton.classList.add('bg-yellow-500', 'text-white');
+                }
+            }
+            
+            // Update counters
+            document.getElementById('safe-count').textContent = safeCount;
+            document.getElementById('danger-count').textContent = dangerCount;
+            document.getElementById('score').textContent = gameScore;
+        }
+
+        function resetMalwareGame() {
+            gameScore = 0;
+            safeCount = 0;
+            dangerCount = 0;
+            document.getElementById('safe-count').textContent = '0';
+            document.getElementById('danger-count').textContent = '0';
+            document.getElementById('score').textContent = '0';
+            initMalwareGame();
+        }
+
+        // Scenario checking functions
+        function checkScenario(scenarioId, correctAnswer) {
+            const scenario = document.getElementById(scenarioId);
+            const options = scenario.querySelectorAll('.scenario-option');
+            const result = document.getElementById(scenarioId + '-result');
+            
+            let selectedAnswer = null;
+            options.forEach(option => {
+                if (option.classList.contains('selected')) {
+                    selectedAnswer = option.dataset.answer;
+                }
+            });
+            
+            if (!selectedAnswer) {
+                alert('Vui lòng chọn một đáp án!');
+                return;
+            }
+            
+            options.forEach(option => {
+                option.classList.remove('selected');
+                if (option.dataset.answer === correctAnswer) {
+                    option.classList.add('correct');
+                } else if (option.dataset.answer === selectedAnswer) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            result.classList.remove('hidden');
+            
+            const explanations = {
+                'scenario1': {
+                    'C': 'Chính xác! Luôn xác minh thông tin qua kênh chính thức. Email này có nhiều dấu hiệu đáng nghi: tên miền giả mạo, tạo áp lực thời gian, yêu cầu hành động khẩn cấp.',
+                    'other': 'Chưa đúng. Đây là email lừa đảo (phishing). Không bao giờ nhấn vào link lạ hoặc cung cấp thông tin qua email đáng nghi.'
+                },
+                'scenario2': {
+                    'C': 'Đúng rồi! Chặn/báo cáo tài khoản xấu và tìm sự hỗ trợ từ người lớn là cách xử lý tốt nhất. Bắt nạt mạng là hành vi nghiêm trọng cần được ngăn chặn.',
+                    'other': 'Chưa phù hợp. Không nên phản pháo hoặc tự cô lập. Hãy tìm sự hỗ trợ và báo cáo hành vi bắt nạt để được bảo vệ.'
+                },
+                'scenario3': {
+                    'C': 'Chính xác! Hủy tải xuống và tìm nguồn chính thức là quyết định an toàn nhất. File có nhiều dấu hiệu đáng nghi: kích thước nhỏ bất thường, nguồn không rõ ràng.',
+                    'other': 'Chưa an toàn. File này có nhiều dấu hiệu của malware. Ngay cả khi quét virus, một số malware mới có thể không được phát hiện.'
+                }
+            };
+            
+            const explanation = explanations[scenarioId];
+            const message = selectedAnswer === correctAnswer ? explanation[correctAnswer] : explanation['other'];
+            const alertClass = selectedAnswer === correctAnswer ? 'bg-green-100 border-green-400 text-green-700' : 'bg-red-100 border-red-400 text-red-700';
+            const icon = selectedAnswer === correctAnswer ? 'fas fa-check-circle' : 'fas fa-times-circle';
+            
+            result.innerHTML = `<div class="${alertClass} px-4 py-3 rounded border"><i class="${icon} mr-2"></i>${message}</div>`;
+            
+            if (selectedAnswer === correctAnswer && !scenario.dataset.completed) {
+                completedSections++;
+                scenario.dataset.completed = 'true';
+                updateProgress();
+            }
+        }
+
+        function resetScenario(scenarioId) {
+            const scenario = document.getElementById(scenarioId);
+            const options = scenario.querySelectorAll('.scenario-option');
+            const result = document.getElementById(scenarioId + '-result');
+            
+            options.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            result.classList.add('hidden');
+        }
+
+        // Event listeners for scenario and test option selection
+        document.addEventListener('click', function(e) {
+            // Find the actual option element for scenarios
+            let scenarioOption = null;
+            if (e.target.classList.contains('scenario-option')) {
+                scenarioOption = e.target;
+            } else if (e.target.closest('.scenario-option')) {
+                scenarioOption = e.target.closest('.scenario-option');
+            }
+            
+            if (scenarioOption) {
+                const scenario = scenarioOption.parentElement;
+                
+                // Remove selection from all options in this scenario
+                scenario.querySelectorAll('.scenario-option').forEach(opt => {
+                    opt.classList.remove('selected', 'bg-blue-100', 'border-blue-500');
+                });
+                
+                // Add selection to clicked option
+                scenarioOption.classList.add('selected', 'bg-blue-100', 'border-blue-500');
+            }
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initMalwareGame();
+            updateProgress();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9864c5b376d08b35',t:'MTc1OTA3ODU2Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
