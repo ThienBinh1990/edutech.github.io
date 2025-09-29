@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương trình Tin học THPT 2018 - Giáo dục phổ thông mới</title>
+    <meta name="description" content="Tìm hiểu về Chương trình Tin học THPT 2018 - Định hướng giáo dục công nghệ thông tin hiện đại cho học sinh phổ thông">
+    <meta name="keywords" content="tin học THPT, chương trình 2018, giáo dục phổ thông, công nghệ thông tin, lập trình Python">
+    <meta name="author" content="Thầy Hồ Văn Thuyên">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Chương trình Tin học THPT 2018">
+    <meta property="og:description" content="Khám phá chương trình Tin học THPT 2018 với định hướng hiện đại">
+    <meta property="og:type" content="website">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Chương trình Tin học THPT 2018",
+        "description": "Giới thiệu tổng quan về Chương trình Tin học THPT 2018",
+        "author": {
+            "@type": "Person",
+            "name": "Hồ Văn Thuyên",
+            "jobTitle": "Giáo viên Tin học"
+        },
+        "educationalLevel": "High School",
+        "inLanguage": "vi-VN"
+    }
+    </script>
+    
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #333333;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555555;
+        }
+        
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Hero gradient animation */
+        .hero-gradient {
+            background: linear-gradient(-45deg, #333333, #555555, #333333, #444444);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Card hover effects */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(51, 51, 51, 0.3);
+        }
+        
+        /* Timeline styles */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #333333, #555555);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #333333;
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(51, 51, 51, 0.3);
+        }
+        
+        /* Accordion animation */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .accordion-content.active {
+            max-height: 500px;
+        }
+        
+        /* Fade in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Button pulse effect */
+        .btn-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(51, 51, 51, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(51, 51, 51, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(51, 51, 51, 0); }
+        }
+        
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .timeline-item::before {
+                left: 20px;
+            }
+            
+            .timeline-dot {
+                left: 20px;
+            }
+        }
+        
+        /* Security CSS - Disable text selection and copying */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Allow selection for input fields */
+        input, textarea {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        
+        /* Disable image dragging */
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+        
+        /* Hide scrollbar in some browsers to prevent inspection */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        /* Blur effect when trying to inspect */
+        .blur-protection {
+            filter: blur(5px);
+            transition: filter 0.3s ease;
+        }
+        
+        /* Watermark overlay */
+        body::before {
+            content: "© Bảo vệ bởi Thầy Hồ Văn Thuyên";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1rem;
+            color: rgba(0, 0, 0, 0.02);
+            pointer-events: none;
+            z-index: 1000;
+            white-space: nowrap;
+        }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#333333',
+                        secondary: '#333333',
+                        accent: '#333333',
+                        dark: '#333333',
+                        light: '#FFFFFF'
+                    }
+                }
+            }
+        }
+        
+        // Security Protection - Disable right-click, F12, Ctrl+U, etc.
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            showSecurityAlert();
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            // Disable F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, Ctrl+A, Ctrl+P
+            if (e.keyCode === 123 || 
+                (e.ctrlKey && e.shiftKey && e.keyCode === 73) ||
+                (e.ctrlKey && e.keyCode === 85) ||
+                (e.ctrlKey && e.keyCode === 83) ||
+                (e.ctrlKey && e.keyCode === 65) ||
+                (e.ctrlKey && e.keyCode === 80)) {
+                e.preventDefault();
+                showSecurityAlert();
+            }
+        });
+        
+        // Disable text selection
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+        
+        // Disable drag
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+        
+        // Security alert function
+        function showSecurityAlert() {
+            const alertDiv = document.createElement('div');
+            alertDiv.innerHTML = `
+                <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+                    <div class="bg-white p-8 rounded-lg shadow-xl max-w-md mx-4">
+                        <div class="text-center">
+                            <i class="fas fa-shield-alt text-red-500 text-4xl mb-4"></i>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Nội dung được bảo vệ</h3>
+                            <p class="text-gray-600 mb-4">Trang web này được bảo vệ bởi hệ thống bảo mật. Việc sao chép hoặc xem mã nguồn không được phép.</p>
+                            <button onclick="this.parentElement.parentElement.parentElement.remove()" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition duration-300">
+                                Đã hiểu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(alertDiv);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 3000);
+        }
+        
+        // Obfuscate console
+        setInterval(function() {
+            console.clear();
+            console.log('%c🔒 PROTECTED CONTENT', 'color: red; font-size: 20px; font-weight: bold;');
+            console.log('%cViệc truy cập mã nguồn không được phép!', 'color: red; font-size: 14px;');
+        }, 1000);
+        
+        // Detect DevTools
+        let devtools = {open: false, orientation: null};
+        const threshold = 160;
+        
+        setInterval(function() {
+            if (window.outerHeight - window.innerHeight > threshold || 
+                window.outerWidth - window.innerWidth > threshold) {
+                if (!devtools.open) {
+                    devtools.open = true;
+                    showSecurityAlert();
+                }
+            } else {
+                devtools.open = false;
+            }
+        }, 500);
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-graduation-cap text-primary text-2xl mr-3"></i>
+                    <span class="text-xl font-bold text-gray-800">Tin học THPT 2018</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#gioi-thieu" class="text-gray-700 hover:text-primary transition duration-300">Giới thiệu</a>
+                    <a href="#cau-truc" class="text-gray-700 hover:text-primary transition duration-300">Cấu trúc</a>
+                    
+                    <!-- Dropdown Menu -->
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-primary transition duration-300 flex items-center">
+                            Danh mục
+                            <i class="fas fa-chevron-down ml-1 text-sm group-hover:rotate-180 transition-transform duration-300"></i>
+                        </button>
+                        <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2">
+                                <a href="#tin-hoc-10" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-primary transition duration-300">
+                                    <i class="fas fa-book mr-2 text-primary"></i>Tin học 10
+                                </a>
+                                <a href="#tin-hoc-11" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-primary transition duration-300">
+                                    <i class="fas fa-laptop-code mr-2 text-primary"></i>Tin học 11
+                                </a>
+                                <a href="#tin-hoc-12" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-primary transition duration-300">
+                                    <i class="fas fa-graduation-cap mr-2 text-primary"></i>Tin học 12
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#nang-luc" class="text-gray-700 hover:text-primary transition duration-300">Năng lực</a>
+                    <a href="#faq" class="text-gray-700 hover:text-primary transition duration-300">FAQ</a>
+                    <a href="#lien-he" class="text-gray-700 hover:text-primary transition duration-300">Liên hệ</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-primary">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <a href="#gioi-thieu" class="block py-2 text-gray-700 hover:text-primary">Giới thiệu</a>
+                <a href="#cau-truc" class="block py-2 text-gray-700 hover:text-primary">Cấu trúc</a>
+                
+                <!-- Mobile Dropdown -->
+                <div class="border-t border-gray-200 mt-2 pt-2">
+                    <button onclick="toggleMobileDropdown()" class="w-full text-left py-2 text-gray-700 hover:text-primary flex items-center justify-between">
+                        Danh mục
+                        <i id="mobile-dropdown-icon" class="fas fa-chevron-down text-sm transition-transform duration-300"></i>
+                    </button>
+                    <div id="mobile-dropdown" class="hidden pl-4 space-y-1">
+                        <a href="#tin-hoc-10" class="block py-2 text-gray-600 hover:text-primary">
+                            <i class="fas fa-book mr-2 text-primary"></i>Tin học 10
+                        </a>
+                        <a href="#tin-hoc-11" class="block py-2 text-gray-600 hover:text-primary">
+                            <i class="fas fa-laptop-code mr-2 text-primary"></i>Tin học 11
+                        </a>
+                        <a href="#tin-hoc-12" class="block py-2 text-gray-600 hover:text-primary">
+                            <i class="fas fa-graduation-cap mr-2 text-primary"></i>Tin học 12
+                        </a>
+                    </div>
+                </div>
+                
+                <a href="#nang-luc" class="block py-2 text-gray-700 hover:text-primary">Năng lực</a>
+                <a href="#faq" class="block py-2 text-gray-700 hover:text-primary">FAQ</a>
+                <a href="#lien-he" class="block py-2 text-gray-700 hover:text-primary">Liên hệ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white pt-20 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    Chương trình Tin học THPT 2018
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
+                    Định hướng giáo dục công nghệ thông tin hiện đại, phát triển tư duy tin học và kỹ năng giải quyết vấn đề cho thế hệ số
+                </p>
+                <button onclick="scrollToSection('gioi-thieu')" class="bg-white text-dark px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300 btn-pulse">
+                    <i class="fas fa-rocket mr-2"></i>Khám phá chương trình
+                </button>
+            </div>
+            
+            <!-- Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 fade-in">
+                <div class="text-center">
+                    <div class="text-4xl font-bold mb-2">34</div>
+                    <div class="text-lg opacity-80">Bài học</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold mb-2">6</div>
+                    <div class="text-lg opacity-80">Chủ đề chính</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold mb-2">3</div>
+                    <div class="text-lg opacity-80">Khối lớp</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Giới thiệu chung -->
+    <section id="gioi-thieu" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-lightbulb text-dark mr-3"></i>Giới thiệu chung
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Chương trình Tin học THPT 2018 được thiết kế nhằm phát triển năng lực tin học và tư duy tính toán cho học sinh
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Mục tiêu chương trình</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-dark text-xl mr-4 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Phát triển tư duy tin học</h4>
+                                <p class="text-gray-600">Giúp học sinh hiểu bản chất của thông tin và quá trình xử lý thông tin</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-dark text-xl mr-4 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Kỹ năng giải quyết vấn đề</h4>
+                                <p class="text-gray-600">Ứng dụng công nghệ thông tin để giải quyết các vấn đề thực tế</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-dark text-xl mr-4 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Chuẩn bị cho tương lai</h4>
+                                <p class="text-gray-600">Định hướng nghề nghiệp trong lĩnh vực công nghệ thông tin</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-in">
+                    <div class="bg-gradient-to-br from-dark to-gray-700 p-8 rounded-2xl text-white">
+                        <h3 class="text-2xl font-bold mb-6">Định hướng phát triển</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-brain text-2xl mr-4"></i>
+                                <span>Tư duy logic và sáng tạo</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-code text-2xl mr-4"></i>
+                                <span>Kỹ năng lập trình cơ bản</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-shield-alt text-2xl mr-4"></i>
+                                <span>An toàn thông tin</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-users text-2xl mr-4"></i>
+                                <span>Đạo đức số và trách nhiệm xã hội</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cấu trúc chương trình -->
+    <section id="cau-truc" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-sitemap text-dark mr-3"></i>Cấu trúc chương trình
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Chương trình được tổ chức theo 3 khối lớp với 6 chủ đề chính, từ cơ bản đến nâng cao
+                </p>
+            </div>
+            
+            <!-- Timeline -->
+            <div class="relative">
+                <div class="timeline-item relative">
+                    <!-- Lớp 10 -->
+                    <div class="mb-16 fade-in">
+                        <div class="timeline-dot"></div>
+                        <div class="md:flex items-center">
+                            <div class="md:w-1/2 md:pr-8 mb-8 md:mb-0">
+                                <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+                                    <div class="flex items-center mb-4">
+                                        <div class="bg-dark text-white w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                            <span class="font-bold">10</span>
+                                        </div>
+                                        <h3 class="text-2xl font-bold text-gray-800">Lớp 10 - Nền tảng</h3>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-desktop text-dark mr-3"></i>
+                                            <span>Máy tính và xã hội tri thức</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-network-wired text-dark mr-3"></i>
+                                            <span>Mạng máy tính và Internet</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-balance-scale text-dark mr-3"></i>
+                                            <span>Đạo đức và pháp luật số</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fab fa-python text-dark mr-3"></i>
+                                            <span>Lập trình Python cơ bản</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-8">
+                                <div class="text-center md:text-left">
+                                    <h4 class="text-xl font-semibold text-gray-800 mb-3">Mục tiêu khối 10</h4>
+                                    <p class="text-gray-600 mb-4">Xây dựng nền tảng kiến thức tin học, làm quen với lập trình và hiểu vai trò của công nghệ trong xã hội.</p>
+                                    <div class="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full">
+                                        <i class="fas fa-book mr-2"></i>
+                                        <span class="font-medium">34 bài học</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Lớp 11 -->
+                    <div class="mb-16 fade-in">
+                        <div class="timeline-dot bg-dark"></div>
+                        <div class="md:flex items-center flex-row-reverse">
+                            <div class="md:w-1/2 md:pl-8 mb-8 md:mb-0">
+                                <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+                                    <div class="flex items-center mb-4">
+                                        <div class="bg-dark text-white w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                            <span class="font-bold">11</span>
+                                        </div>
+                                        <h3 class="text-2xl font-bold text-gray-800">Lớp 11 - Phát triển</h3>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-database text-dark mr-3"></i>
+                                            <span>Cơ sở dữ liệu</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-code-branch text-dark mr-3"></i>
+                                            <span>Thuật toán và lập trình nâng cao</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-palette text-dark mr-3"></i>
+                                            <span>Thiết kế đồ họa</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-project-diagram text-dark mr-3"></i>
+                                            <span>Dự án thực tế</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pr-8">
+                                <div class="text-center md:text-right">
+                                    <h4 class="text-xl font-semibold text-gray-800 mb-3">Mục tiêu khối 11</h4>
+                                    <p class="text-gray-600 mb-4">Phát triển kỹ năng lập trình, làm việc với dữ liệu và thực hiện các dự án ứng dụng thực tế.</p>
+                                    <div class="inline-flex items-center bg-purple-100 text-purple-800 px-4 py-2 rounded-full">
+                                        <i class="fas fa-laptop-code mr-2"></i>
+                                        <span class="font-medium">Thực hành chuyên sâu</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Lớp 12 -->
+                    <div class="fade-in">
+                        <div class="timeline-dot bg-green-500"></div>
+                        <div class="md:flex items-center">
+                            <div class="md:w-1/2 md:pr-8 mb-8 md:mb-0">
+                                <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+                                    <div class="flex items-center mb-4">
+                                        <div class="bg-green-500 text-white w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                            <span class="font-bold">12</span>
+                                        </div>
+                                        <h3 class="text-2xl font-bold text-gray-800">Lớp 12 - Chuyên sâu</h3>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-robot text-green-500 mr-3"></i>
+                                            <span>Trí tuệ nhân tạo cơ bản</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-chart-line text-green-500 mr-3"></i>
+                                            <span>Phân tích dữ liệu</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-briefcase text-green-500 mr-3"></i>
+                                            <span>Hướng nghiệp CNTT</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-globe text-green-500 mr-3"></i>
+                                            <span>Lập trình web</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-8">
+                                <div class="text-center md:text-left">
+                                    <h4 class="text-xl font-semibold text-gray-800 mb-3">Mục tiêu khối 12</h4>
+                                    <p class="text-gray-600 mb-4">Chuyên sâu vào các lĩnh vực hiện đại, chuẩn bị cho việc học đại học và định hướng nghề nghiệp.</p>
+                                    <div class="inline-flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-full">
+                                        <i class="fas fa-star mr-2"></i>
+                                        <span class="font-medium">Chuyên môn cao</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tin học 10 Section -->
+    <section id="tin-hoc-10" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-book text-primary mr-3"></i>Tin học 10 - Nền tảng
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Xây dựng nền tảng kiến thức tin học cơ bản và làm quen với lập trình
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl card-hover fade-in">
+                    <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Máy tính & Xã hội tri thức</h3>
+                    <p class="text-gray-600 text-sm">Hiểu vai trò của máy tính trong xã hội hiện đại</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl card-hover fade-in">
+                    <div class="bg-green-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Mạng máy tính</h3>
+                    <p class="text-gray-600 text-sm">Tìm hiểu về Internet và mạng máy tính</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl card-hover fade-in">
+                    <div class="bg-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Đạo đức số</h3>
+                    <p class="text-gray-600 text-sm">Pháp luật và đạo đức trong môi trường số</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl card-hover fade-in">
+                    <div class="bg-yellow-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Python cơ bản</h3>
+                    <p class="text-gray-600 text-sm">Làm quen với lập trình Python</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tin học 11 Section -->
+    <section id="tin-hoc-11" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-laptop-code text-primary mr-3"></i>Tin học 11 - Phát triển
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Phát triển kỹ năng lập trình và làm việc với dữ liệu
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover fade-in">
+                    <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Cơ sở dữ liệu</h3>
+                    <p class="text-gray-600 text-sm">Thiết kế và quản lý cơ sở dữ liệu</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover fade-in">
+                    <div class="bg-green-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Thuật toán</h3>
+                    <p class="text-gray-600 text-sm">Thuật toán và lập trình nâng cao</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover fade-in">
+                    <div class="bg-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Thiết kế đồ họa</h3>
+                    <p class="text-gray-600 text-sm">GIMP, INKSCAPE và thiết kế UI/UX</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover fade-in">
+                    <div class="bg-yellow-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Dự án thực tế</h3>
+                    <p class="text-gray-600 text-sm">Thực hiện các dự án ứng dụng</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tin học 12 Section -->
+    <section id="tin-hoc-12" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-graduation-cap text-primary mr-3"></i>Tin học 12 - Chuyên sâu
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Chuyên sâu vào các lĩnh vực hiện đại và định hướng nghề nghiệp
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl card-hover fade-in">
+                    <div class="bg-indigo-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Trí tuệ nhân tạo</h3>
+                    <p class="text-gray-600 text-sm">Khái niệm cơ bản về AI và Machine Learning</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl card-hover fade-in">
+                    <div class="bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Phân tích dữ liệu</h3>
+                    <p class="text-gray-600 text-sm">Xử lý và phân tích dữ liệu lớn</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-teal-50 to-teal-100 p-6 rounded-xl card-hover fade-in">
+                    <div class="bg-teal-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Hướng nghiệp CNTT</h3>
+                    <p class="text-gray-600 text-sm">Định hướng nghề nghiệp trong CNTT</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl card-hover fade-in">
+                    <div class="bg-orange-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Lập trình web</h3>
+                    <p class="text-gray-600 text-sm">HTML, CSS, JavaScript và framework hiện đại</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Năng lực hướng tới -->
+    <section id="nang-luc" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-trophy text-primary mr-3"></i>Năng lực hướng tới
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Chương trình phát triển 5 nhóm năng lực cốt lõi cho học sinh thế kỷ 21
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Năng lực tin học -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl card-hover fade-in">
+                    <div class="bg-primary text-white w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-microchip text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Năng lực tin học</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary mr-2"></i>
+                            <span>Hiểu bản chất thông tin</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary mr-2"></i>
+                            <span>Xử lý dữ liệu hiệu quả</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary mr-2"></i>
+                            <span>Sử dụng công cụ số</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Tư duy tính toán -->
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-2xl card-hover fade-in">
+                    <div class="bg-secondary text-white w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-brain text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Tư duy tính toán</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-secondary mr-2"></i>
+                            <span>Phân tích vấn đề</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-secondary mr-2"></i>
+                            <span>Thiết kế thuật toán</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-secondary mr-2"></i>
+                            <span>Tối ưu hóa giải pháp</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Sáng tạo số -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl card-hover fade-in">
+                    <div class="bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-lightbulb text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Sáng tạo số</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Tạo nội dung số</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Phát triển ứng dụng</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Đổi mới sáng tạo</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Giao tiếp và hợp tác -->
+                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-8 rounded-2xl card-hover fade-in">
+                    <div class="bg-yellow-500 text-white w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-users text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Giao tiếp & Hợp tác</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow-500 mr-2"></i>
+                            <span>Làm việc nhóm</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow-500 mr-2"></i>
+                            <span>Chia sẻ kiến thức</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow-500 mr-2"></i>
+                            <span>Giao tiếp số</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- An toàn và đạo đức -->
+                <div class="bg-gradient-to-br from-red-50 to-red-100 p-8 rounded-2xl card-hover fade-in">
+                    <div class="bg-red-500 text-white w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-shield-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">An toàn & Đạo đức</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-red-500 mr-2"></i>
+                            <span>Bảo mật thông tin</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-red-500 mr-2"></i>
+                            <span>Đạo đức số</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-red-500 mr-2"></i>
+                            <span>Trách nhiệm xã hội</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Học tập suốt đời -->
+                <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-8 rounded-2xl card-hover fade-in">
+                    <div class="bg-indigo-500 text-white w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-infinity text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Học tập suốt đời</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-indigo-500 mr-2"></i>
+                            <span>Tự học và nghiên cứu</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-indigo-500 mr-2"></i>
+                            <span>Cập nhật công nghệ</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-indigo-500 mr-2"></i>
+                            <span>Phát triển bản thân</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Điểm mới so với chương trình cũ -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-sync-alt text-primary mr-3"></i>Điểm mới so với chương trình cũ
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Những cải tiến đáng kể trong định hướng và phương pháp giáo dục tin học
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Chương trình cũ -->
+                <div class="fade-in">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-gray-400 text-white w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800">Chương trình cũ</h3>
+                        </div>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-minus-circle text-gray-400 mr-3 mt-1"></i>
+                                <span>Tập trung vào kỹ năng sử dụng phần mềm</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-minus-circle text-gray-400 mr-3 mt-1"></i>
+                                <span>Lập trình Pascal, C++ phức tạp</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-minus-circle text-gray-400 mr-3 mt-1"></i>
+                                <span>Thiếu tính thực tiễn và ứng dụng</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-minus-circle text-gray-400 mr-3 mt-1"></i>
+                                <span>Ít chú trọng đến đạo đức số</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-minus-circle text-gray-400 mr-3 mt-1"></i>
+                                <span>Học thuộc lòng, ít sáng tạo</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Chương trình mới -->
+                <div class="fade-in">
+                    <div class="bg-gradient-to-br from-dark to-gray-700 p-8 rounded-2xl text-white">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-white text-primary w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold">Chương trình 2018</h3>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-plus-circle text-green-300 mr-3 mt-1"></i>
+                                <span>Phát triển tư duy tin học và giải quyết vấn đề</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-plus-circle text-green-300 mr-3 mt-1"></i>
+                                <span>Python - ngôn ngữ hiện đại, dễ học</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-plus-circle text-green-300 mr-3 mt-1"></i>
+                                <span>Ứng dụng thực tế, dự án cụ thể</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-plus-circle text-green-300 mr-3 mt-1"></i>
+                                <span>Đạo đức số và an toàn thông tin</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-plus-circle text-green-300 mr-3 mt-1"></i>
+                                <span>Khuyến khích sáng tạo và đổi mới</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-question-circle text-primary mr-3"></i>Câu hỏi thường gặp
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Những thắc mắc phổ biến về chương trình Tin học THPT 2018
+                </p>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- FAQ Item 1 -->
+                <div class="bg-gray-50 rounded-2xl overflow-hidden fade-in">
+                    <button class="accordion-btn w-full text-left p-6 focus:outline-none" onclick="toggleAccordion(0)">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-800">Học Tin học THPT để làm gì?</h3>
+                            <i class="fas fa-chevron-down text-primary transition-transform duration-300" id="icon-0"></i>
+                        </div>
+                    </button>
+                    <div class="accordion-content px-6 pb-6" id="content-0">
+                        <div class="text-gray-600 space-y-3">
+                            <p>Học Tin học THPT 2018 giúp học sinh:</p>
+                            <ul class="list-disc list-inside space-y-2 ml-4">
+                                <li>Phát triển tư duy logic và khả năng giải quyết vấn đề</li>
+                                <li>Nắm vững kỹ năng lập trình cơ bản với Python</li>
+                                <li>Hiểu về an toàn thông tin và đạo đức số</li>
+                                <li>Chuẩn bị cho các ngành nghề công nghệ trong tương lai</li>
+                                <li>Ứng dụng công nghệ vào học tập và cuộc sống</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="bg-gray-50 rounded-2xl overflow-hidden fade-in">
+                    <button class="accordion-btn w-full text-left p-6 focus:outline-none" onclick="toggleAccordion(1)">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-800">Khác biệt của chương trình THPT 2018 là gì?</h3>
+                            <i class="fas fa-chevron-down text-primary transition-transform duration-300" id="icon-1"></i>
+                        </div>
+                    </button>
+                    <div class="accordion-content px-6 pb-6" id="content-1">
+                        <div class="text-gray-600 space-y-3">
+                            <p>Chương trình THPT 2018 có những điểm khác biệt quan trọng:</p>
+                            <ul class="list-disc list-inside space-y-2 ml-4">
+                                <li><strong>Ngôn ngữ lập trình:</strong> Chuyển từ Pascal/C++ sang Python - dễ học và thực tế hơn</li>
+                                <li><strong>Phương pháp:</strong> Tập trung vào tư duy tin học thay vì chỉ kỹ năng sử dụng</li>
+                                <li><strong>Nội dung:</strong> Bổ sung đạo đức số, an toàn thông tin, AI cơ bản</li>
+                                <li><strong>Ứng dụng:</strong> Nhiều dự án thực tế, gắn liền với cuộc sống</li>
+                                <li><strong>Đánh giá:</strong> Đánh giá năng lực thay vì chỉ kiến thức</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="bg-gray-50 rounded-2xl overflow-hidden fade-in">
+                    <button class="accordion-btn w-full text-left p-6 focus:outline-none" onclick="toggleAccordion(2)">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-800">Có hướng nghiệp CNTT không?</h3>
+                            <i class="fas fa-chevron-down text-primary transition-transform duration-300" id="icon-2"></i>
+                        </div>
+                    </button>
+                    <div class="accordion-content px-6 pb-6" id="content-2">
+                        <div class="text-gray-600 space-y-3">
+                            <p>Chương trình có chú trọng mạnh mẽ đến hướng nghiệp CNTT:</p>
+                            <ul class="list-disc list-inside space-y-2 ml-4">
+                                <li><strong>Lớp 10:</strong> Giới thiệu vai trò của CNTT trong xã hội</li>
+                                <li><strong>Lớp 11:</strong> Thực hành các dự án ứng dụng thực tế</li>
+                                <li><strong>Lớp 12:</strong> Chuyên đề hướng nghiệp: Thiết kế đồ họa, Phát triển phần mềm</li>
+                                <li>Tìm hiểu các ngành nghề: Lập trình viên, Thiết kế web, Phân tích dữ liệu, AI Engineer</li>
+                                <li>Kỹ năng cần thiết và con đường phát triển nghề nghiệp</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="bg-gray-50 rounded-2xl overflow-hidden fade-in">
+                    <button class="accordion-btn w-full text-left p-6 focus:outline-none" onclick="toggleAccordion(3)">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-800">Python có khó học không?</h3>
+                            <i class="fas fa-chevron-down text-primary transition-transform duration-300" id="icon-3"></i>
+                        </div>
+                    </button>
+                    <div class="accordion-content px-6 pb-6" id="content-3">
+                        <div class="text-gray-600 space-y-3">
+                            <p>Python được chọn vì những ưu điểm vượt trội:</p>
+                            <ul class="list-disc list-inside space-y-2 ml-4">
+                                <li><strong>Cú pháp đơn giản:</strong> Gần với ngôn ngữ tự nhiên, dễ hiểu</li>
+                                <li><strong>Học từ cơ bản:</strong> Bắt đầu từ biến, vòng lặp đến hàm và dự án</li>
+                                <li><strong>Ứng dụng rộng:</strong> Web, AI, phân tích dữ liệu, tự động hóa</li>
+                                <li><strong>Cộng đồng lớn:</strong> Nhiều tài liệu, hỗ trợ học tập</li>
+                                <li><strong>Thực tế:</strong> Được sử dụng nhiều trong công nghiệp</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="bg-gray-50 rounded-2xl overflow-hidden fade-in">
+                    <button class="accordion-btn w-full text-left p-6 focus:outline-none" onclick="toggleAccordion(4)">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-800">Làm sao để học tốt Tin học THPT?</h3>
+                            <i class="fas fa-chevron-down text-primary transition-transform duration-300" id="icon-4"></i>
+                        </div>
+                    </button>
+                    <div class="accordion-content px-6 pb-6" id="content-4">
+                        <div class="text-gray-600 space-y-3">
+                            <p>Một số gợi ý để học tốt Tin học THPT:</p>
+                            <ul class="list-disc list-inside space-y-2 ml-4">
+                                <li><strong>Thực hành thường xuyên:</strong> Lập trình cần luyện tập nhiều</li>
+                                <li><strong>Hiểu logic:</strong> Tập trung vào tư duy giải quyết vấn đề</li>
+                                <li><strong>Làm dự án:</strong> Áp dụng kiến thức vào bài toán thực tế</li>
+                                <li><strong>Học nhóm:</strong> Thảo luận và chia sẻ kinh nghiệm</li>
+                                <li><strong>Tìm hiểu thêm:</strong> Khám phá các ứng dụng mở rộng</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ý nghĩa thực tiễn -->
+    <section class="py-16 bg-gradient-to-br from-primary to-secondary text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    <i class="fas fa-rocket mr-3"></i>Ý nghĩa thực tiễn
+                </h2>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto">
+                    Chương trình Tin học THPT 2018 mang lại giá trị thiết thực cho học sinh và xã hội
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center fade-in">
+                    <div class="bg-white bg-opacity-20 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-user-graduate text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Cho học sinh</h3>
+                    <ul class="space-y-2 opacity-90">
+                        <li>• Phát triển tư duy logic</li>
+                        <li>• Kỹ năng giải quyết vấn đề</li>
+                        <li>• Chuẩn bị cho tương lai số</li>
+                        <li>• Định hướng nghề nghiệp</li>
+                    </ul>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <div class="bg-white bg-opacity-20 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-chalkboard-teacher text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Cho giáo viên</h3>
+                    <ul class="space-y-2 opacity-90">
+                        <li>• Phương pháp giảng dạy mới</li>
+                        <li>• Công cụ hỗ trợ hiện đại</li>
+                        <li>• Phát triển chuyên môn</li>
+                        <li>• Kết nối với thực tiễn</li>
+                    </ul>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <div class="bg-white bg-opacity-20 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-globe text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Cho xã hội</h3>
+                    <ul class="space-y-2 opacity-90">
+                        <li>• Nguồn nhân lực chất lượng</li>
+                        <li>• Thúc đẩy chuyển đổi số</li>
+                        <li>• Phát triển kinh tế số</li>
+                        <li>• Nâng cao năng lực quốc gia</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="lien-he" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-envelope text-primary mr-3"></i>Liên hệ
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Có thắc mắc về chương trình? Hãy liên hệ với chúng tôi
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="fade-in">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">Thông tin liên hệ</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-user text-primary text-xl mr-4"></i>
+                                <div>
+                                    <div class="font-semibold text-gray-800">Thầy Hồ Văn Thuyên</div>
+                                    <div class="text-gray-600">Giáo viên Tin học</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-primary text-xl mr-4"></i>
+                                <div>
+                                    <div class="font-semibold text-gray-800">Email</div>
+                                    <div class="text-gray-600">thuyen.hovan@example.com</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-primary text-xl mr-4"></i>
+                                <div>
+                                    <div class="font-semibold text-gray-800">Điện thoại</div>
+                                    <div class="text-gray-600">0123 456 789</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-primary text-xl mr-4"></i>
+                                <div>
+                                    <div class="font-semibold text-gray-800">Địa chỉ</div>
+                                    <div class="text-gray-600">Trường THPT ABC, Quận XYZ, TP. HCM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-in">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">Gửi tin nhắn</h3>
+                        <form class="space-y-4" onsubmit="handleSubmit(event)">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Họ tên</label>
+                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Nhập họ tên của bạn" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Email</label>
+                                <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Nhập email của bạn" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Tin nhắn</label>
+                                <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Nhập tin nhắn của bạn" required></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
+                                <i class="fas fa-paper-plane mr-2"></i>Gửi tin nhắn
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-graduation-cap text-2xl mr-3"></i>
+                        <span class="text-xl font-bold">Tin học THPT 2018</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Chương trình giáo dục tin học hiện đại, phát triển năng lực số cho thế hệ tương lai.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Chương trình</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#gioi-thieu" class="hover:text-white transition duration-300">Giới thiệu</a></li>
+                        <li><a href="#cau-truc" class="hover:text-white transition duration-300">Cấu trúc</a></li>
+                        <li><a href="#nang-luc" class="hover:text-white transition duration-300">Năng lực</a></li>
+                        <li><a href="#faq" class="hover:text-white transition duration-300">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Tài nguyên</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition duration-300">Bài giảng</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Bài tập</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Dự án mẫu</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Tài liệu tham khảo</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Liên hệ</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>
+                            <i class="fas fa-envelope mr-2"></i>
+                            thuyen.hovan@example.com
+                        </li>
+                        <li>
+                            <i class="fas fa-phone mr-2"></i>
+                            0123 456 789
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            TP. Hồ Chí Minh
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Chương trình Tin học THPT 2018. Được phát triển bởi <strong>Thầy Hồ Văn Thuyên</strong> - Giáo viên Tin học.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full shadow-lg hover:bg-blue-700 transition duration-300 opacity-0 pointer-events-none">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Mobile dropdown toggle
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobile-dropdown');
+            const icon = document.getElementById('mobile-dropdown-icon');
+            
+            dropdown.classList.toggle('hidden');
+            if (dropdown.classList.contains('hidden')) {
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Smooth scroll function
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Accordion functionality
+        function toggleAccordion(index) {
+            const content = document.getElementById(`content-${index}`);
+            const icon = document.getElementById(`icon-${index}`);
+            
+            // Close all other accordions
+            for (let i = 0; i < 5; i++) {
+                if (i !== index) {
+                    const otherContent = document.getElementById(`content-${i}`);
+                    const otherIcon = document.getElementById(`icon-${i}`);
+                    otherContent.classList.remove('active');
+                    otherIcon.style.transform = 'rotate(0deg)';
+                }
+            }
+            
+            // Toggle current accordion
+            content.classList.toggle('active');
+            if (content.classList.contains('active')) {
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Cảm ơn bạn đã gửi tin nhắn! Chúng tôi sẽ phản hồi sớm nhất có thể.');
+            event.target.reset();
+        }
+
+        // Fade in animation on scroll
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Back to top button
+        function handleBackToTop() {
+            const backToTopBtn = document.getElementById('back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.opacity = '1';
+                backToTopBtn.style.pointerEvents = 'auto';
+            } else {
+                backToTopBtn.style.opacity = '0';
+                backToTopBtn.style.pointerEvents = 'none';
+            }
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', function() {
+            handleScrollAnimation();
+            handleBackToTop();
+        });
+
+        document.getElementById('back-to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Initialize animations on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            handleScrollAnimation();
+        });
+
+        // Navigation link smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98699121a2680387',t:'MTc1OTEyODg0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
